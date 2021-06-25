@@ -1,30 +1,143 @@
 ---
-title: "Untitled"
+title:  "ANÁLISIS FACTORIAL"
+author: "Maryury Johana Garcia Gelves 1950186"
 output: github_document
 ---
+# **EXAMEN FINAL DE DISEÑO DE EXPERIMENTOS**
 
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
+La siguiente base de datos fue una encuesta realizada a **30 jovenes de la Universidad Francisco de Paula Santarder** en la cual se les pregunta la edad y a que se dedican durante las 24 horas del día.
+
+#**Importar base de datos en formato Excel**
+```{r}
+library(readxl)
+datos<- read_excel("C:/Users/USUARIO/Documents/B.D.xlsx")
+```
+#**Tipificación o estandarización de variables**
+
+La tipificación permite que todas las variables métricas gocen de una misma unidad de medida estadistica.
+```{r}
+datosm<- datos # nueva base de datos o data frame
+datosm<-scale(datosm,center = T, scale = T)
+datosm<- as.data.frame(datosm)
+```
+#**Normalidad Multivariante**
+
+H0: Normalida Multivariante
+
+H1: No Normalidad Multivariante
+
+confianza= 95%
+
+Alfa= 5% = 0,05%
+
+P value > alfa: no se rechaza la H0 (Normalidad)
+
+P value < alfa: se rechaza la H0 (No normalidad)
+
+```{r}
+library(MVN)
+mvn(datosm[2:7])
+```
+En el test  Mardia Skewness P value < alfa,se rechaza la H0,es decir no existe normalidad multivariante, en cambio en el test Mardia Kurtosis P value > alfa, no se rechaza H0, es decir existe normalidad multivariable. por tanto, MVN nos da un resultado de NO.
+
+#**Matriz de correlaciones**
+
+H0: Correlación = 0 (no hay correlación)
+
+H1: Correlación diferente de 0 (si hay correlación)
+
+Cuando no se rechaza H0, no se aplica AFE.
+
+se rechaza H0, sí se aplica AFE.
+
+```{r}
+library(psych)
+corr.test(datosm[,2:7])
+correlaciones<- corr.test(datosm[,2:7]) #se crea la matriz de correlaciones 
+correlaciones$r # matriz de correlaciones
+j <- as.matrix(correlaciones$r)
 ```
 
-## GitHub Documents
+#**Indicadores de aplicabilidad**  
 
-This is an R Markdown format used for publishing markdown documents to GitHub. When you click the **Knit** button all R code chunks are run and a markdown file (.md) suitable for publishing to GitHub is generated.
+##**Contraste de esfericidad de Bartlett**
 
-## Including Code
+H0: Las correlaciones teóricas entre cada par de variables es nulo.
 
-You can include R code in the document as follows:
+H1: Las correlaciones teóricas entre cada par de variables no es nulo.
 
-```{r cars}
-summary(cars)
+P value > alfa: no se aplica el AFE (no se rechaza H0)
+
+P value < alfa: sí se aplica AFE (se rechaza H0)
+
+```{r}
+dim(datosm) # tamaño de la muestra= 30 personas
+cortest.bartlett(j,n=30)
+```
+P value < alfa, se rechaza H0, por tanto las correlaciones teóricas entre cada par de variables es nulo,es decir, el análisis factorial exploratorio (AFE) es aplicable.
+
+#**Medida de adecuación muestral de Kaiser, Meyer y Oklin (KMO)**
+
+Estudia variable por variable, si son o no aceptadas en el modelo para hacer AFE.(Qué variables elimino o mantengo)
+
+Se mantiene una variable,si el KMO es igual o mayor a 0,7.
+
+Se elimina una variable, si el KMO < a 0,7.
+
+```{r}
+KMO(j)
 ```
 
-## Including Plots
+KMO= 0,54, el modelo es Miserable 
 
-You can also embed plots, for example:
+Edad=0,40 (inaceptable)
 
-```{r pressure, echo=FALSE}
-plot(pressure)
+hrs_familia=0,54 (miserable)
+
+hrs_deporte=0,36 (inaceptable)
+
+hrs_redes=0,55 (miserable)
+
+hrs_trabajo= 0,68 (mediocre)
+
+hrs_estudio=0,60 (mediocre)
+
+Todas las variables estan sujetas a ser eliminadas porque los KMO< 0,7
+
+KMO global = 0,54 no se puede hacer AFE.
+
+#**Determinación del número de factores a extraer**
+
+##**Método de las componentes principales iteradas (Ejes principales )**
+
+Este método de las Ejes principales se ocupa cuando no hay normalidad multivariante; pero, tambien es válido para modelos normalidad multivariante.
+
+```{r}
+fa.parallel(j, fm= "pa", n.obs = 30, ylabel = "Eigenvalues")
 ```
+Con el método de los ejes principales se extraería solo 1 factor.
 
-Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
+##**Método de las componentes principales**
+
+Sirve solo para modelos con normalidad multivariable.
+
+```{r}
+fa.parallel(j, fm= "pc", n.obs = 30, ylabel = "Eigenvalues")
+```
+Con el método de las componentes principales se recomienda extraer 1 factor.
+
+##**Método de la máxima verosimilitud**
+
+Sirve solo para modelos con normalidad multivariante.
+
+```{r}
+fa.parallel(j, fm= "ml", n.obs = 30, ylabel = "Eigenvalues")
+```
+Con el método de la máxima verosimilitud se recomienda extraer 1 factor.
+
+##**Método paralelo con iteraciones**
+
+Sirve solo para modelos con normalida multivariante.
+
+
+
