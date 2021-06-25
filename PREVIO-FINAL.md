@@ -8,14 +8,14 @@ La siguiente base de datos fue una encuesta realizada a **30 jovenes de
 la Universidad Francisco de Paula Santarder** en la cual se les pregunta
 la edad y a que se dedican durante las 24 horas del día.
 
-\#**Importar base de datos en formato Excel**
+# **Importar base de datos en formato Excel**
 
 ``` r
 library(readxl)
 datos<- read_excel("C:/Users/USUARIO/Documents/B.D.xlsx")
 ```
 
-\#**Tipificación o estandarización de variables**
+# **Tipificación o estandarización de variables**
 
 La tipificación permite que todas las variables métricas gocen de una
 misma unidad de medida estadistica.
@@ -26,7 +26,7 @@ datosm<-scale(datosm,center = T, scale = T)
 datosm<- as.data.frame(datosm)
 ```
 
-\#**Normalidad Multivariante**
+# **Normalidad Multivariante**
 
 H0: Normalida Multivariante
 
@@ -90,7 +90,7 @@ no existe normalidad multivariante, en cambio en el test Mardia Kurtosis
 P value &gt; alfa, no se rechaza H0, es decir existe normalidad
 multivariable. por tanto, MVN nos da un resultado de NO.
 
-\#**Matriz de correlaciones**
+# **Matriz de correlaciones**
 
 H0: Correlación = 0 (no hay correlación)
 
@@ -165,9 +165,9 @@ correlaciones$r # matriz de correlaciones
 j <- as.matrix(correlaciones$r)
 ```
 
-\#**Indicadores de aplicabilidad**
+# **Indicadores de aplicabilidad**
 
-\#\#**Contraste de esfericidad de Bartlett**
+## **Contraste de esfericidad de Bartlett**
 
 H0: Las correlaciones teóricas entre cada par de variables es nulo.
 
@@ -200,7 +200,7 @@ P value &lt; alfa, se rechaza H0, por tanto las correlaciones teóricas
 entre cada par de variables es nulo,es decir, el análisis factorial
 exploratorio (AFE) es aplicable.
 
-\#**Medida de adecuación muestral de Kaiser, Meyer y Oklin (KMO)**
+# **Medida de adecuación muestral de Kaiser, Meyer y Oklin (KMO)**
 
 Estudia variable por variable, si son o no aceptadas en el modelo para
 hacer AFE.(Qué variables elimino o mantengo)
@@ -241,10 +241,9 @@ Todas las variables estan sujetas a ser eliminadas porque los KMO&lt;
 
 KMO global = 0,54 no se puede hacer AFE.
 
-\#**Determinación del número de factores a extraer**
+# **Determinación del número de factores a extraer**
 
-\#\#**Método de las componentes principales iteradas (Ejes principales
-)**
+## **Método de las componentes principales iteradas (Ejes principales )**
 
 Este método de las Ejes principales se ocupa cuando no hay normalidad
 multivariante; pero, tambien es válido para modelos normalidad
@@ -288,7 +287,7 @@ fa.parallel(j, fm= "pa", n.obs = 30, ylabel = "Eigenvalues")
 
 Con el método de los ejes principales se extraería solo 1 factor.
 
-\#\#**Método de las componentes principales**
+## **Método de las componentes principales**
 
 Sirve solo para modelos con normalidad multivariable.
 
@@ -296,6 +295,8 @@ Sirve solo para modelos con normalidad multivariable.
 fa.parallel(j, fm= "pc", n.obs = 30, ylabel = "Eigenvalues")
 ```
 
+    ## factor method not specified correctly, minimum residual (unweighted least squares  used
+    ## factor method not specified correctly, minimum residual (unweighted least squares  used
     ## factor method not specified correctly, minimum residual (unweighted least squares  used
     ## factor method not specified correctly, minimum residual (unweighted least squares  used
     ## factor method not specified correctly, minimum residual (unweighted least squares  used
@@ -313,14 +314,10 @@ fa.parallel(j, fm= "pc", n.obs = 30, ylabel = "Eigenvalues")
     ## ultra-Heywood case was detected. Examine the results carefully
 
     ## factor method not specified correctly, minimum residual (unweighted least squares  used
-
-    ## Warning in fa.stats(r = r, f = f, phi = phi, n.obs = n.obs, np.obs = np.obs, :
-    ## The estimated weights for the factor scores are probably incorrect. Try a
-    ## different factor score estimation method.
-
-    ## Warning in fa.stats(r = r, f = f, phi = phi, n.obs = n.obs, np.obs = np.obs, :
-    ## An ultra-Heywood case was detected. Examine the results carefully
-
+    ## factor method not specified correctly, minimum residual (unweighted least squares  used
+    ## factor method not specified correctly, minimum residual (unweighted least squares  used
+    ## factor method not specified correctly, minimum residual (unweighted least squares  used
+    ## factor method not specified correctly, minimum residual (unweighted least squares  used
     ## factor method not specified correctly, minimum residual (unweighted least squares  used
     ## factor method not specified correctly, minimum residual (unweighted least squares  used
 
@@ -333,58 +330,7 @@ fa.parallel(j, fm= "pc", n.obs = 30, ylabel = "Eigenvalues")
 
     ## factor method not specified correctly, minimum residual (unweighted least squares  used
     ## factor method not specified correctly, minimum residual (unweighted least squares  used
-
-    ## Warning in fa.stats(r = r, f = f, phi = phi, n.obs = n.obs, np.obs = np.obs, :
-    ## The estimated weights for the factor scores are probably incorrect. Try a
-    ## different factor score estimation method.
-
-    ## Warning in fa.stats(r = r, f = f, phi = phi, n.obs = n.obs, np.obs = np.obs, :
-    ## An ultra-Heywood case was detected. Examine the results carefully
-
     ## factor method not specified correctly, minimum residual (unweighted least squares  used
-
-    ## Warning in fa.stats(r = r, f = f, phi = phi, n.obs = n.obs, np.obs = np.obs, :
-    ## The estimated weights for the factor scores are probably incorrect. Try a
-    ## different factor score estimation method.
-
-    ## Warning in fa.stats(r = r, f = f, phi = phi, n.obs = n.obs, np.obs = np.obs, :
-    ## An ultra-Heywood case was detected. Examine the results carefully
-
-    ## factor method not specified correctly, minimum residual (unweighted least squares  used
-    ## factor method not specified correctly, minimum residual (unweighted least squares  used
-
-    ## Warning in fa.stats(r = r, f = f, phi = phi, n.obs = n.obs, np.obs = np.obs, :
-    ## The estimated weights for the factor scores are probably incorrect. Try a
-    ## different factor score estimation method.
-
-    ## Warning in fa.stats(r = r, f = f, phi = phi, n.obs = n.obs, np.obs = np.obs, :
-    ## An ultra-Heywood case was detected. Examine the results carefully
-
-    ## factor method not specified correctly, minimum residual (unweighted least squares  used
-    ## factor method not specified correctly, minimum residual (unweighted least squares  used
-
-    ## Warning in fa.stats(r = r, f = f, phi = phi, n.obs = n.obs, np.obs = np.obs, :
-    ## The estimated weights for the factor scores are probably incorrect. Try a
-    ## different factor score estimation method.
-
-    ## factor method not specified correctly, minimum residual (unweighted least squares  used
-
-    ## Warning in fa.stats(r = r, f = f, phi = phi, n.obs = n.obs, np.obs = np.obs, :
-    ## The estimated weights for the factor scores are probably incorrect. Try a
-    ## different factor score estimation method.
-
-    ## Warning in fa.stats(r = r, f = f, phi = phi, n.obs = n.obs, np.obs = np.obs, :
-    ## An ultra-Heywood case was detected. Examine the results carefully
-
-    ## factor method not specified correctly, minimum residual (unweighted least squares  used
-
-    ## Warning in fa.stats(r = r, f = f, phi = phi, n.obs = n.obs, np.obs = np.obs, :
-    ## The estimated weights for the factor scores are probably incorrect. Try a
-    ## different factor score estimation method.
-
-    ## Warning in fa.stats(r = r, f = f, phi = phi, n.obs = n.obs, np.obs = np.obs, :
-    ## An ultra-Heywood case was detected. Examine the results carefully
-
     ## factor method not specified correctly, minimum residual (unweighted least squares  used
 
     ## Warning in fa.stats(r = r, f = f, phi = phi, n.obs = n.obs, np.obs = np.obs, :
@@ -401,7 +347,7 @@ fa.parallel(j, fm= "pc", n.obs = 30, ylabel = "Eigenvalues")
 Con el método de las componentes principales se recomienda extraer 1
 factor.
 
-\#\#**Método de la máxima verosimilitud**
+## **Método de la máxima verosimilitud**
 
 Sirve solo para modelos con normalidad multivariante.
 
@@ -411,11 +357,11 @@ fa.parallel(j, fm= "ml", n.obs = 30, ylabel = "Eigenvalues")
 
 ![](PREVIO-FINAL_files/figure-gfm/unnamed-chunk-9-1.png)<!-- -->
 
-    ## Parallel analysis suggests that the number of factors =  0  and the number of components =  1
+    ## Parallel analysis suggests that the number of factors =  1  and the number of components =  1
 
 Con el método de la máxima verosimilitud se recomienda extraer 1 factor.
 
-\#\#**Método paralelo con iteraciones**
+## **Método paralelo con iteraciones**
 
 Sirve solo para modelos con normalida multivariante.
 
@@ -441,7 +387,7 @@ paran(j, iterations= 1000, graph = T)
     ## Component   Adjusted    Unadjusted    Estimated 
     ##             Eigenvalue  Eigenvalue    Bias 
     ## -------------------------------------------------- 
-    ## 1           1.260444    3.029250      1.768805
+    ## 1           1.261939    3.029250      1.767310
     ## -------------------------------------------------- 
     ## 
     ## Adjusted eigenvalues > 1 indicate dimensions to retain.
@@ -464,9 +410,9 @@ Método paralelo con iteraciones (Horn’s)= 1 factor
 
 En conclusió se extraera 1 factor.
 
-\#**Método de extracción de factores**
+# **Método de extracción de factores**
 
-\#\#**Método de análisis de los componentes principales (ACP)**
+## **Método de análisis de los componentes principales (ACP)**
 
 ``` r
 library(psych)
@@ -521,8 +467,7 @@ Lo ideal es que proportion var sea lo más cercano a 1.
 
 RMSR= 0.17 (Raíz cuadrada media de los residuos ).
 
-\#\#**Método de los ejes principales o componentes principales iteradas
-(CPI)**
+## **Método de los ejes principales o componentes principales iteradas (CPI)**
 
 ``` r
 cpi<-fa(j, nfactores=1, fm="pa", rotate = "none", n.obs = 30)
@@ -570,7 +515,7 @@ Proportion Var 0.23= 23%
 
 (RMSR)= 0.13
 
-\#\#**Método de máxima verosimilitud (MVE)**
+## **Método de máxima verosimilitud (MVE)**
 
 ``` r
 mve<-fa(j, nfactores=1, fm="ml",rotate="none", n.obs = 30)
@@ -618,7 +563,7 @@ Proportion Var = 0.24 = 24%
 
 (RMSR) = 0.14
 
-\#\#\#*Resumen*
+### *Resumen*
 
 ACP: Var= 34% RMSR= 0.17
 
@@ -629,6 +574,173 @@ MVE: var= 24% RMSR= 0.14
 Nos quedamos con aquel modelo que tenga la proportion var más alta y
 RMSR más pequeño.
 
-\#**Representación gráfica de los factores extraídos**
+# **Obtención de las puntuaciones factoriales**
 
-\#\#*Método de análisis de las componentes principales (ACP)*
+## *Método de análisis de las componentes principales iteradas (ACP)*
+
+``` r
+acp1<- principal(datosm[,2:7], nfactores=1, rotate="none", scores = T)
+acp1$scores
+```
+
+    ##               PC1
+    ##  [1,] -0.17965322
+    ##  [2,]  1.36924969
+    ##  [3,] -0.98734618
+    ##  [4,]  0.95826992
+    ##  [5,]  0.56357822
+    ##  [6,] -0.08589320
+    ##  [7,] -0.28557364
+    ##  [8,]  0.46120897
+    ##  [9,]  0.81231895
+    ## [10,] -0.81747725
+    ## [11,] -1.38770026
+    ## [12,] -1.69635815
+    ## [13,] -0.85421960
+    ## [14,] -0.26194481
+    ## [15,] -0.50497580
+    ## [16,] -1.00475728
+    ## [17,] -0.63426208
+    ## [18,]  0.08345544
+    ## [19,] -1.72247480
+    ## [20,]  1.23008413
+    ## [21,]  1.60736473
+    ## [22,] -0.68327501
+    ## [23,]  1.13380123
+    ## [24,]  1.26448736
+    ## [25,] -0.69876596
+    ## [26,] -0.90809777
+    ## [27,]  0.47754441
+    ## [28,]  0.14337260
+    ## [29,]  1.85151874
+    ## [30,]  0.75652063
+
+``` r
+puntuacionesfactoriales_acp<-acp1$scores
+puntuacionesfactoriales_acp<-as.data.frame(puntuacionesfactoriales_acp)
+```
+
+## *Método de las componentes principales iteradas (CPI)*
+
+``` r
+cpi1<-fa(datosm[,2:7],nfactores=1, fm="pa", rotate="none", n.obs = 30, scores = "regression")
+cpi1$scores
+```
+
+    ##               PA1
+    ##  [1,] -0.01216284
+    ##  [2,]  1.28275435
+    ##  [3,] -0.89974535
+    ##  [4,]  0.85841478
+    ##  [5,]  0.55007011
+    ##  [6,] -0.19897343
+    ##  [7,] -0.37071219
+    ##  [8,]  0.52572891
+    ##  [9,]  0.67244927
+    ## [10,] -0.66775786
+    ## [11,] -1.14218035
+    ## [12,] -1.35674343
+    ## [13,] -0.85126009
+    ## [14,] -0.35322611
+    ## [15,] -0.72695021
+    ## [16,] -0.90081046
+    ## [17,] -0.41269144
+    ## [18,]  0.04483920
+    ## [19,] -1.35834109
+    ## [20,]  0.91594938
+    ## [21,]  1.22322894
+    ## [22,] -0.54876712
+    ## [23,]  1.02449260
+    ## [24,]  0.90343099
+    ## [25,] -0.36846021
+    ## [26,] -0.62512430
+    ## [27,]  0.45628852
+    ## [28,]  0.13702313
+    ## [29,]  1.48202324
+    ## [30,]  0.71721305
+
+``` r
+puntfact_cpi<-cpi1$scores
+puntfact_cpi<-as.data.frame(puntfact_cpi)
+```
+
+## *Método de la máxima verosimilitud (MVE)*
+
+``` r
+mve1<-fa(datosm[,2:7],nfactores=1, fm="ml", rotate="none", n.obs = 30, scores = "regression")
+mve1$scores
+```
+
+    ##              ML1
+    ##  [1,]  0.2127349
+    ##  [2,]  1.3798671
+    ##  [3,] -0.9301580
+    ##  [4,]  0.8695312
+    ##  [5,]  0.4870742
+    ##  [6,] -0.5539572
+    ##  [7,] -0.5266273
+    ##  [8,]  0.2896580
+    ##  [9,]  0.6312262
+    ## [10,] -0.5131309
+    ## [11,] -1.0994057
+    ## [12,] -1.3462578
+    ## [13,] -0.8871237
+    ## [14,] -0.4661992
+    ## [15,] -0.8896279
+    ## [16,] -0.9520944
+    ## [17,] -0.2724222
+    ## [18,]  0.1546458
+    ## [19,] -1.3791625
+    ## [20,]  0.8224103
+    ## [21,]  1.1829308
+    ## [22,] -0.5099715
+    ## [23,]  1.0733491
+    ## [24,]  1.0778392
+    ## [25,] -0.2017881
+    ## [26,] -0.4754014
+    ## [27,]  0.3514694
+    ## [28,]  0.2573460
+    ## [29,]  1.5004171
+    ## [30,]  0.7128286
+
+``` r
+puntfact_mve<-mve1$scores
+puntfact_mve<-as.data.frame(puntfact_mve)
+```
+
+# **Obtención de los factores extraídos**
+
+Se trabaja ya sea con el método ACP,CPI o MVE.
+
+``` r
+factor.scores(j, acp, method = "Thurstone")
+```
+
+    ## $scores
+    ## NULL
+    ## 
+    ## $weights
+    ##                         PC1
+    ## edad            -0.02074646
+    ## hrs en  familia  0.30622703
+    ## hrs-deporte      0.12077073
+    ## hrs_redes        0.33005938
+    ## hrs_trabajo      0.36296461
+    ## hrs_de estudio  -0.37347292
+    ## 
+    ## $r.scores
+    ##     PC1
+    ## PC1   1
+    ## 
+    ## $R2
+    ## [1] 1
+
+Z1= -0.021Edad + 0.31Hrs\_familia + 0.12Hrs\_deporte + 0.33Hrs\_redes +
+0.36Hrs\_trabajo - 0.37Hrs\_estudio.
+
+# **Agregar el factor extraído (puntuaciones factoriales) en el data frame original**
+
+``` r
+datos_puntuaciones<-c(datos, puntuacionesfactoriales_acp)
+datos_puntuaciones<- as.data.frame(datos_puntuaciones)
+```
